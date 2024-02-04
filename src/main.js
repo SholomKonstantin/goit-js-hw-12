@@ -19,6 +19,7 @@ const photoLoader = {
         per_page: 40,
         page: 1,
     },
+    prevSearchTerm: "",
     searchPhotosBtn: document.querySelector(".search-btn"),
     searchTerm: document.querySelector(".searchTerm"),
     loader: document.querySelector(".loader"),
@@ -33,12 +34,18 @@ const photoLoader = {
 
     startSearch(event) {
         event.preventDefault();
-        if (this.searchTerm.value.trim().length < 3) {
+        const newSearchTerm = this.searchTerm.value.trim();
+        if (newSearchTerm.length < 3) {
             this.showAlert("Please, enter search term!");
             return;
         }
+        if (newSearchTerm === this.prevSearchTerm) {
+            this.showAlert("You have already searched for this term.");
+            return;
+        }
+        this.prevSearchTerm = newSearchTerm;
         this.gallery.innerHTML = '';
-        this.searchParams.q = this.searchTerm.value.trim();
+        this.searchParams.q = newSearchTerm;
         this.searchParams.page = 1;
         this.fetchPhotos();
     },
@@ -52,6 +59,7 @@ const photoLoader = {
         if (photos.total === 0) {
             this.showAlert('Sorry, there are no images matching your search query. Please try again!');
             this.showLoaderAndButtons(false);
+            getMoreBtn.style.display = 'none';  // Скрыть кнопку при отсутствии изображений
             return;
         }
         this.totalHits = photos.totalHits;
@@ -75,8 +83,11 @@ const photoLoader = {
 
     scrollTop() {
         if (this.searchParams.page > 1) {
-            const rect = document.querySelector(".gallery-link").getBoundingClientRect();
-            window.scrollBy({ top: rect.height * 2, left: 0, behavior: "smooth" });
+            const firstGalleryLink = document.querySelector(".gallery-link");
+            if (firstGalleryLink) {
+                const rect = firstGalleryLink.getBoundingClientRect();
+                window.scrollBy({ top: rect.height * 2, left: 0, behavior: "smooth" });
+            }
         }
     },
 
