@@ -15,7 +15,23 @@
   </head>
   <body>
     <!-- Loads gallery.html file -->
-    <a href="./gallery.html">Перейти до галереї</a>
+
+    <form class="form" autocomplete="off">
+      <label for="searchTerm">
+        <input
+          class="searchTerm"
+          type="search"
+          name="searchTerm"
+          id="searchTerm"
+          placeholder="Search images..."
+        />
+      </label>
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <div class="gallery"></div>
+    <span class="loader"></span>
+    <button class="get-more-btn" type="button">Load more</button>
 
     <script type="module" src="./main.js" async></script>
   </body>
