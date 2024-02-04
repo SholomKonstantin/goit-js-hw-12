@@ -12,14 +12,30 @@
       rel="stylesheet"
     />
     
-    <script async type="module" crossorigin src="/vanilla-app-template/assets/vendor-5401a4b0.js"></script>
-    <script async type="module" crossorigin src="/vanilla-app-template/assets/main-351f6ba4.js"></script>
-    <link rel="stylesheet" href="/vanilla-app-template/assets/main-47a50f46.css">
+    <script async type="module" crossorigin src="/vanilla-app-template/commonHelpers.js"></script>
+    <link rel="modulepreload" crossorigin href="/vanilla-app-template/assets/vendor-5401a4b0.js">
     <link rel="stylesheet" href="/vanilla-app-template/assets/vendor-cf6910df.css">
+    <link rel="stylesheet" href="/vanilla-app-template/assets/index-47a50f46.css">
   </head>
   <body>
     <!-- Loads gallery.html file -->
-    <a href="./gallery.html">Перейти до галереї</a>
+
+    <form class="form" autocomplete="off">
+      <label for="searchTerm">
+        <input
+          class="searchTerm"
+          type="search"
+          name="searchTerm"
+          id="searchTerm"
+          placeholder="Search images..."
+        />
+      </label>
+      <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <div class="gallery"></div>
+    <span class="loader"></span>
+    <button class="get-more-btn" type="button">Load more</button>
 
     
   </body>
